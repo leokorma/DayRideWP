@@ -104,8 +104,8 @@ namespace TCPSocket
                 });
 
                 // Add the data to be sent into the buffer
-                byte[] payload = Encoding.UTF8.GetBytes(data);
-                socketEventArg.SetBuffer(payload, 0, payload.Length);
+                //byte[] payload = Encoding.UTF8.GetBytes(data);
+                socketEventArg.SetBuffer(new byte[20], 0, 20);
 
                 // Sets the state of the event to nonsignaled, causing threads to block
                 _clientDone.Reset();
@@ -141,7 +141,7 @@ namespace TCPSocket
                 socketEventArg.RemoteEndPoint = _socket.RemoteEndPoint;
 
                 // Setup the buffer to receive the data
-                socketEventArg.SetBuffer(new Byte[MAX_BUFFER_SIZE], 0, MAX_BUFFER_SIZE);
+                socketEventArg.SetBuffer(new byte[20], 0, 20);
 
                 // Inline event handler for the Completed event.
                 // Note: This even handler was implemented inline in order to make 
@@ -151,8 +151,10 @@ namespace TCPSocket
                     if (e.SocketError == SocketError.Success)
                     {
                         // Retrieve the data from the buffer
-                        response = Encoding.UTF8.GetString(e.Buffer, e.Offset, e.BytesTransferred);
-                        response = response.Trim('\0');
+                        //response = Encoding.UTF8.GetString(e.Buffer, e.Offset, e.BytesTransferred);
+                        //response = response.Trim('\0');
+                        response = "hola";
+                        System.Diagnostics.Debug.WriteLine("done");
                     }
                     else
                     {

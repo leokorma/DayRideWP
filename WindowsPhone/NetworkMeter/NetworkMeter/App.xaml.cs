@@ -60,7 +60,6 @@ namespace NetworkMeter
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -160,7 +159,7 @@ namespace NetworkMeter
 
         private void PopupWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
         }
 
         private void PopupWorker_Completed(object sender, RunWorkerCompletedEventArgs e)

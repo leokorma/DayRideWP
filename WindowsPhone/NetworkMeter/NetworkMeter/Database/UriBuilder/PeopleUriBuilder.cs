@@ -8,6 +8,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Text;
+using NetworkMeter.Crypto;
 
 namespace NetworkMeter.Database.UriBuilder
 {
@@ -17,7 +19,14 @@ namespace NetworkMeter.Database.UriBuilder
 
         public string listByName(string name)
         {
-            return list(collection, "name", name);
+            string query = "&q={\"name\":\"" + name + "\"}";
+            return list(collection, query);
+        }
+
+        public string listByNameAndPassword(string name, string password)
+        {
+            string query = "&q={\"name\":\"" + name + "\",\"password\":\"" + password + "\" }";
+            return list(collection, query);
         }
     }
 }

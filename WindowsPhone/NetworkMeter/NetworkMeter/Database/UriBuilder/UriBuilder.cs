@@ -28,9 +28,9 @@ namespace NetworkMeter.Database.UriBuilder
             return "?apiKey=" + DatabaseResources.apiKey;
         }
 
-        protected string list(string collection, string paramname, string paramvalue)
+        protected string list(string collection, string query)
         {
-            return getCollectionUriFragment(collection) + getApiKeyUriFragment() + "&q={\"" + paramname + "\":\"" + paramvalue + "\"}";
+            return getCollectionUriFragment(collection) + getApiKeyUriFragment() + query;
         }
     }
 }

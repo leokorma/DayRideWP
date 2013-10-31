@@ -90,18 +90,18 @@ namespace NetworkMeter.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Login process failed. Please try again..
         /// </summary>
-        public static string loginErrorMessage {
+        public static string LoginErrorMessage {
             get {
-                return ResourceManager.GetString("loginErrorMessage", resourceCulture);
+                return ResourceManager.GetString("LoginErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User no found..
         /// </summary>
-        public static string noUserFoundErrorMessage {
+        public static string NoUserFoundErrorMessage {
             get {
-                return ResourceManager.GetString("noUserFoundErrorMessage", resourceCulture);
+                return ResourceManager.GetString("NoUserFoundErrorMessage", resourceCulture);
             }
         }
         
@@ -117,9 +117,18 @@ namespace NetworkMeter.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Password must not be empty.
         /// </summary>
-        public static string passwordErrorMessage {
+        public static string PasswordErrorMessage {
             get {
-                return ResourceManager.GetString("passwordErrorMessage", resourceCulture);
+                return ResourceManager.GetString("PasswordErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login as.
+        /// </summary>
+        public static string QuickLogin {
+            get {
+                return ResourceManager.GetString("QuickLogin", resourceCulture);
             }
         }
         
@@ -135,9 +144,18 @@ namespace NetworkMeter.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Username must not be empty.
         /// </summary>
-        public static string usernameErrorMessage {
+        public static string UsernameErrorMessage {
             get {
-                return ResourceManager.GetString("usernameErrorMessage", resourceCulture);
+                return ResourceManager.GetString("UsernameErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

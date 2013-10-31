@@ -12,11 +12,30 @@ using NetworkMeter.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using NetworkMeter.Database.UriBuilder;
+using System.Windows.Navigation;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight;
+using NetworkMeter.Storage;
 
 namespace NetworkMeter.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
+        private string _QuickLoginButtonContent;
+
+        public string QuickLoginButtonContent
+        {
+            get { return _QuickLoginButtonContent; }
+            set
+            {
+                if (_QuickLoginButtonContent != value)
+                {
+                    _QuickLoginButtonContent = value;
+                    RaisePropertyChanged("QuickLoginButtonContent");
+                }
+            }
+        }
+
         private bool _IsLoginErrorMessageVisible = false;
 
         public bool IsLoginErrorMessageVisible
@@ -77,6 +96,21 @@ namespace NetworkMeter.ViewModel
             }
         }
 
+        private bool _IsQuickLoginButtonVisible = false;
+
+        public bool IsQuickLoginButtonVisible
+        {
+            get { return _IsQuickLoginButtonVisible; }
+            set
+            {
+                if (_IsQuickLoginButtonVisible != value)
+                {
+                    _IsQuickLoginButtonVisible = value;
+                    RaisePropertyChanged("IsQuickLoginButtonVisible");
+                }
+            }
+        }
+
         public void hideAllMessages()
         {
             IsLoginErrorMessageVisible = false;
@@ -109,6 +143,17 @@ namespace NetworkMeter.ViewModel
             IsPasswordErrorMessageVisible = true;
         }
 
+        public void showQuickLoginButton(string username)
+        {
+            QuickLoginButtonContent = Localization.LocalizationResources.QuickLogin + " " + username;
+            IsQuickLoginButtonVisible = true;
+        }
+
+        public void hideQuickLoginButton()
+        {
+            IsQuickLoginButtonVisible = false;
+        }
+
         public void validateCredentials(string username, string password)
         {
             if (!isUsernameValid(username))
@@ -123,7 +168,7 @@ namespace NetworkMeter.ViewModel
                 return;
             }
 
-            string uri = new PeopleUriBuilder().listByName(username);
+            string uri = new PeopleUriBuilder().listByNameAndPassword(username, password);
 
             WebClient client = new WebClient();
             client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
@@ -156,7 +201,14 @@ namespace NetworkMeter.ViewModel
                 return;
             }
 
-            // GO SOMEWHERE
+            Person person = people[0];
+
+            StorageUtils storageUtils = new StorageUtils();
+            storageUtils.Set(storageUtils.USERNAME, person.Name);
+            storageUtils.Set(storageUtils.PASSWORD, person.Password);
+
+            Uri uri = new Uri("/View/WelcomePage.xaml", UriKind.Relative);
+            Messenger.Default.Send<Uri>(uri, "Navigate");
         }
 
 
@@ -168,6 +220,24 @@ namespace NetworkMeter.ViewModel
         private bool isPasswordValid(string password)
         {
             return !String.IsNullOrWhiteSpace(password);
+        }
+
+        public void verifyIfUserIsLoggedIn()
+        {
+            StorageUtils storageUtils = new StorageUtils();
+
+            if (storageUtils.Contains(storageUtils.USERNAME))
+            {
+                showQuickLoginButton(storageUtils.Get(storageUtils.USERNAME));
+                return;
+            }
+            hideQuickLoginButton();
+        }
+
+        public void clear()
+        {
+            StorageUtils storageUtils = new StorageUtils();
+            storageUtils.Remove(storageUtils.USERNAME);
         }
     }
 }

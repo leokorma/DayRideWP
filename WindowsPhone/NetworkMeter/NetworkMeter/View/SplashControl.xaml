@@ -8,8 +8,14 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="800" d:DesignWidth="480">
-    
+
     <Grid x:Name="LayoutRoot">
         <Image Source="/NetworkMeter;component/Images/SplashScreenImage.png" />
+
+        <StackPanel Margin="0,110,0,0" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.ApplicationName}" Style="{StaticResource PhoneTextLargeStyle}" />
+            <ProgressBar Margin="0,20,0,0" IsIndeterminate="True" />
+        </StackPanel>
+
     </Grid>
 </UserControl>

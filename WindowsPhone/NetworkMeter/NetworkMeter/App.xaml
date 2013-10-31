@@ -1,28 +1,26 @@
-﻿<Application 
-    x:Class="NetworkMeter.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:localization="clr-namespace:NetworkMeter.Localization"
-    xmlns:database="clr-namespace:NetworkMeter.Database"
-    xmlns:converter="clr-namespace:NetworkMeter.Converter"
-    xmlns:storage="clr-namespace:NetworkMeter.Storage"
-    >
+<Application x:Class="NetworkMeter.App" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" 
+             xmlns:localization="clr-namespace:NetworkMeter.Localization" 
+             xmlns:database="clr-namespace:NetworkMeter.Database" 
+             xmlns:converter="clr-namespace:NetworkMeter.Converter"
+             xmlns:storage="clr-namespace:NetworkMeter.Storage" 
+             xmlns:vm="clr-namespace:NetworkMeter.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d1p1:Ignorable="d"
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
 
     <!--Application Resources-->
     <Application.Resources>
         <localization:LocalizationUtils x:Key="LocalizationUtils" />
-        <database:DatabaseUtils x:Key="DatabaseUtils" />
         <converter:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
-        <storage:StorageUtils x:Key="StorageUtils" />
+        <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
         <!--Required object that handles lifetime events for the application-->
-        <shell:PhoneApplicationService 
-            Launching="Application_Launching" Closing="Application_Closing" 
-            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+        <shell:PhoneApplicationService Launching="Application_Launching" Closing="Application_Closing" Activated="Application_Activated" Deactivated="Application_Deactivated" />
     </Application.ApplicationLifetimeObjects>
-
 </Application>

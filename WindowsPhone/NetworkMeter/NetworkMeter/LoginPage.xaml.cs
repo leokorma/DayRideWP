@@ -14,36 +14,61 @@ using System.ComponentModel;
 using System.Windows.Controls.Primitives;
 using System.Threading;
 using NetworkMeter.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
+using NetworkMeter.Storage;
+using NetworkMeter.Crypto;
 
 namespace NetworkMeter
 {
     public partial class LoginPage : PhoneApplicationPage
     {
-        private LoginViewModel _ViewModel;
+        private LoginViewModel _viewModel;
 
         // Constructor
         public LoginPage()
         {
             InitializeComponent();
-            _ViewModel = (LoginViewModel)this.Resources["ViewModel"];
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            _viewModel = new ViewModelLocator().Login;
+
+            Messenger.Default.Register<Uri>(this, "Navigate", (uri) => NavigationService.Navigate(uri));
+
+            _viewModel.hideAllMessages();
+            _viewModel.verifyIfUserIsLoggedIn();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string username = usernameTextBlock.Text;
-            string password = passwordTextBlock.Text;
+            string username = UsernameTextBlock.Text;
+            string password = PasswordTextBlock.Password;
 
-            _ViewModel.validateCredentials(username, password);
+            string hash = new CryptoUtils().toSHA256(password);
+
+            _viewModel.validateCredentials(username, hash);
+        }
+
+        private void QuickLoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            StorageUtils storageUtils = new StorageUtils();
+
+            string username = storageUtils.Get(storageUtils.USERNAME);
+            string password = storageUtils.Get(storageUtils.PASSWORD);
+
+            _viewModel.validateCredentials(username, password);
         }
 
         private void loginTextBlock_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _ViewModel.hideAllMessages();
+            _viewModel.hideAllMessages();
         }
 
-        private void passwordTextBlock_TextChanged(object sender, TextChangedEventArgs e)
+        private void PasswordTextBlock_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            _ViewModel.hideAllMessages();
+            _viewModel.hideAllMessages();
         }
     }
 }

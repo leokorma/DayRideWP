@@ -6,7 +6,6 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:NetworkMeter.ViewModel"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -14,12 +13,8 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
-    <UserControl.Resources>
-        <vm:LoginViewModel x:Key="ViewModel"/>
-    </UserControl.Resources>
-
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding Source={StaticResource ViewModel}}">
+    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding Login, Source={StaticResource ViewModelLocator}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -37,17 +32,19 @@
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Margin="0" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.CredentialsMessage}" />
 
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Username}" Margin="0,40,0,0" />
-                <TextBox Name="usernameTextBlock" Text="javier" TextChanged="loginTextBlock_TextChanged" />
+                <TextBox Name="UsernameTextBlock" TextChanged="loginTextBlock_TextChanged" />
 
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Password}" Margin="0,10,0,0" />
-                <TextBox Name="passwordTextBlock" Text="ochoa" TextChanged="passwordTextBlock_TextChanged" />
-
-                <TextBlock Name="loginErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.loginErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsLoginErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
-                <TextBlock Name="noUserFoundErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.noUserFoundErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsNoUserFoundErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
-                <TextBlock Name="usernameErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.usernameErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsUsernameErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
-                <TextBlock Name="passwordErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.passwordErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsPasswordErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
-
+                <PasswordBox Name="PasswordTextBlock" PasswordChanged="PasswordTextBlock_PasswordChanged" />
+                
+                <TextBlock Name="LoginErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.LoginErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsLoginErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
+                <TextBlock Name="NoUserFoundErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.NoUserFoundErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsNoUserFoundErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
+                <TextBlock Name="UsernameErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.UsernameErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsUsernameErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
+                <TextBlock Name="PasswordErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.PasswordErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsPasswordErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
+                
                 <Button Content="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Login}" Name="LoginButton" Margin="0,20,0,0" Click="LoginButton_Click" />
+
+                <Button Name="QuickLoginButton" Margin="0,20,0,0" Click="QuickLoginButton_Click" Visibility="{Binding Path=IsQuickLoginButtonVisible, Converter={StaticResource BoolVisibilityConverter}}" Content="{Binding Path=QuickLoginButtonContent}" />
             </StackPanel>
         </Grid>
     </Grid>

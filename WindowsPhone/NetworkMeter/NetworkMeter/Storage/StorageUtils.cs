@@ -14,6 +14,9 @@ namespace NetworkMeter.Storage
 {
     public class StorageUtils
     {
+        public readonly string USERNAME = "session.username";
+        public readonly string PASSWORD = "session.password";
+
         private IsolatedStorageSettings getSettings()
         {
             return IsolatedStorageSettings.ApplicationSettings;
@@ -34,7 +37,7 @@ namespace NetworkMeter.Storage
             }
         }
 
-        private string Get(string name)
+        public string Get(string name)
         {
             IsolatedStorageSettings settings = getSettings();
 
@@ -45,7 +48,13 @@ namespace NetworkMeter.Storage
             return null;
         }
 
-        private void Remove(string name)
+        public bool Contains(string name)
+        {
+            IsolatedStorageSettings settings = getSettings();
+            return settings.Contains(name);
+        }
+
+        public void Remove(string name)
         {
             IsolatedStorageSettings settings = getSettings();
 

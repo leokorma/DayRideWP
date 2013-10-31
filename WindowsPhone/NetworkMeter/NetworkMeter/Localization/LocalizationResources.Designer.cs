@@ -88,6 +88,24 @@ namespace NetworkMeter.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login process failed. Please try again..
+        /// </summary>
+        public static string loginErrorMessage {
+            get {
+                return ResourceManager.GetString("loginErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User no found..
+        /// </summary>
+        public static string noUserFoundErrorMessage {
+            get {
+                return ResourceManager.GetString("noUserFoundErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -97,11 +115,29 @@ namespace NetworkMeter.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password must not be empty.
+        /// </summary>
+        public static string passwordErrorMessage {
+            get {
+                return ResourceManager.GetString("passwordErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username must not be empty.
+        /// </summary>
+        public static string usernameErrorMessage {
+            get {
+                return ResourceManager.GetString("usernameErrorMessage", resourceCulture);
             }
         }
     }

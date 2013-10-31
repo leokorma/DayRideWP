@@ -11,7 +11,6 @@ using System.Windows.Shapes;
 
 namespace NetworkMeter.Localization
 {
-    // Class to enable localization
     public class LocalizationUtils
     {
         // Constructor
@@ -19,11 +18,11 @@ namespace NetworkMeter.Localization
         {
         }
 
-        private static LocalizationResources _localizationResources = new LocalizationResources();
+        private static LocalizationResources localizationResources = new LocalizationResources();
 
         public LocalizationResources LocalizationResources
         {
-            get { return _localizationResources; }
+            get { return localizationResources; }
         }
     }
 }

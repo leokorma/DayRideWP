@@ -65,6 +65,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Database\DatabaseResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Database\DatabaseUtils.cs" />
     <Compile Include="Localization\LocalizationResources.Designer.cs">
       <DependentUpon>LocalizationResources.resx</DependentUpon>
@@ -79,6 +84,7 @@
     <Compile Include="Database\UriBuilder\PeopleUriBuilder.cs" />
     <Compile Include="Database\UriBuilder\UriBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\StorageUtils.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\SplashControl.xaml.cs">
@@ -115,6 +121,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Database\DatabaseResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DatabaseResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\LocalizationResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalizationResources.Designer.cs</LastGenOutput>

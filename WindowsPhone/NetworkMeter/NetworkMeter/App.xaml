@@ -6,12 +6,16 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:localization="clr-namespace:NetworkMeter.Localization"
     xmlns:database="clr-namespace:NetworkMeter.Database"
+    xmlns:converter="clr-namespace:NetworkMeter.Converter"
+    xmlns:storage="clr-namespace:NetworkMeter.Storage"
     >
 
     <!--Application Resources-->
     <Application.Resources>
         <localization:LocalizationUtils x:Key="LocalizationUtils" />
         <database:DatabaseUtils x:Key="DatabaseUtils" />
+        <converter:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
+        <storage:StorageUtils x:Key="StorageUtils" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

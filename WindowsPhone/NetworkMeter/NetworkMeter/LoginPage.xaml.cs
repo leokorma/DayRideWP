@@ -25,7 +25,7 @@ namespace NetworkMeter
         public LoginPage()
         {
             InitializeComponent();
-            _ViewModel = (LoginViewModel)this.Resources["viewModel"];
+            _ViewModel = (LoginViewModel)this.Resources["ViewModel"];
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

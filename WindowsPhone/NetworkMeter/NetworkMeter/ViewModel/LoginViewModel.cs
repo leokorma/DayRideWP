@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using CommonLibrary.ViewModelBase;
 using NetworkMeter.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;

@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.Windows.Data;
 using System.Globalization;
 
-namespace CommonLibrary.Converter
+namespace NetworkMeter.Converter
 {
     public class BoolVisibilityConverter : IValueConverter
     {

@@ -13,7 +13,16 @@ namespace NetworkMeter.Database
 {
     public class DatabaseUtils
     {
-        public readonly string ApiKey = "clPjlSOPUfCXe0ZA5vaZtEMsBsgq_g3y";
-        public readonly string Database = "networkmeter";
+        // Constructor
+        public DatabaseUtils()
+        {
+        }
+
+        private static DatabaseResources databaseResources = new DatabaseResources();
+
+        public DatabaseResources DatabaseResources
+        {
+            get { return databaseResources; }
+        }
     }
 }

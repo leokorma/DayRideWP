@@ -13,19 +13,9 @@ namespace NetworkMeter.Database.UriBuilder
 {
     public class UriBuilder
     {
-        private string Database;
-        private string ApiKey;
-
-        public UriBuilder()
-        {
-            DatabaseUtils dbUtils = (DatabaseUtils)Application.Current.Resources["DatabaseUtils"];
-            ApiKey = dbUtils.ApiKey;
-            Database = dbUtils.Database;
-        }
-
         private string getDatabaseUriFragment()
         {
-            return "https://api.mongolab.com/api/1/databases/" + Database;
+            return "https://api.mongolab.com/api/1/databases/" + DatabaseResources.database;
         }
 
         private string getCollectionUriFragment(string collection)
@@ -35,7 +25,7 @@ namespace NetworkMeter.Database.UriBuilder
 
         private string getApiKeyUriFragment()
         {
-            return "?apiKey=" + ApiKey;
+            return "?apiKey=" + DatabaseResources.apiKey;
         }
 
         protected string list(string collection, string paramname, string paramvalue)

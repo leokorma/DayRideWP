@@ -32,6 +32,7 @@ namespace NetworkMeter.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<ProfileViewModel>();
         }
 
         public LoginViewModel Login
@@ -39,6 +40,14 @@ namespace NetworkMeter.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
+
+        public ProfileViewModel Profile
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ProfileViewModel>();
             }
         }
 

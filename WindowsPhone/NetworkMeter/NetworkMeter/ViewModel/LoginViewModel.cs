@@ -15,27 +15,12 @@ using NetworkMeter.Database.UriBuilder;
 using System.Windows.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight;
-using NetworkMeter.Storage;
+using NetworkMeter.Utils;
 
 namespace NetworkMeter.ViewModel
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : NavigationViewModel
     {
-        private string _QuickLoginButtonContent;
-
-        public string QuickLoginButtonContent
-        {
-            get { return _QuickLoginButtonContent; }
-            set
-            {
-                if (_QuickLoginButtonContent != value)
-                {
-                    _QuickLoginButtonContent = value;
-                    RaisePropertyChanged("QuickLoginButtonContent");
-                }
-            }
-        }
-
         private bool _IsLoginErrorMessageVisible = false;
 
         public bool IsLoginErrorMessageVisible
@@ -143,17 +128,6 @@ namespace NetworkMeter.ViewModel
             IsPasswordErrorMessageVisible = true;
         }
 
-        public void showQuickLoginButton(string username)
-        {
-            QuickLoginButtonContent = Localization.LocalizationResources.QuickLogin + " " + username;
-            IsQuickLoginButtonVisible = true;
-        }
-
-        public void hideQuickLoginButton()
-        {
-            IsQuickLoginButtonVisible = false;
-        }
-
         public void validateCredentials(string username, string password)
         {
             if (!isUsernameValid(username))
@@ -168,7 +142,7 @@ namespace NetworkMeter.ViewModel
                 return;
             }
 
-            string uri = new PeopleUriBuilder().listByNameAndPassword(username, password);
+            string uri = new ProfileUriBuilder().listByUsernameAndPassword(username, password);
 
             WebClient client = new WebClient();
             client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
@@ -193,24 +167,20 @@ namespace NetworkMeter.ViewModel
                 return;
             }
 
-            List<Person> people = JsonConvert.DeserializeObject<List<Person>>(json);
+            List<Profile> profiles = JsonConvert.DeserializeObject<List<Profile>>(json);
 
-            if (people == null || people.Count == 0)
+            if (profiles == null || profiles.Count == 0)
             {
                 showNoUserFoundErrorMessage();
                 return;
             }
 
-            Person person = people[0];
+            Profile profile = profiles[0];
 
-            StorageUtils storageUtils = new StorageUtils();
-            storageUtils.Set(storageUtils.USERNAME, person.Name);
-            storageUtils.Set(storageUtils.PASSWORD, person.Password);
+            StorageUtils.Set(StorageUtils.CURRENT_PROFILE, JsonUtils.toJson<Profile>(profile));
 
-            Uri uri = new Uri("/View/WelcomePage.xaml", UriKind.Relative);
-            Messenger.Default.Send<Uri>(uri, "Navigate");
+            SendToReadProfilePage();
         }
-
 
         private bool isUsernameValid(string username)
         {
@@ -220,24 +190,6 @@ namespace NetworkMeter.ViewModel
         private bool isPasswordValid(string password)
         {
             return !String.IsNullOrWhiteSpace(password);
-        }
-
-        public void verifyIfUserIsLoggedIn()
-        {
-            StorageUtils storageUtils = new StorageUtils();
-
-            if (storageUtils.Contains(storageUtils.USERNAME))
-            {
-                showQuickLoginButton(storageUtils.Get(storageUtils.USERNAME));
-                return;
-            }
-            hideQuickLoginButton();
-        }
-
-        public void clear()
-        {
-            StorageUtils storageUtils = new StorageUtils();
-            storageUtils.Remove(storageUtils.USERNAME);
         }
     }
 }

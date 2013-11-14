@@ -15,8 +15,8 @@ using System.Windows.Controls.Primitives;
 using System.Threading;
 using NetworkMeter.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
-using NetworkMeter.Storage;
-using NetworkMeter.Crypto;
+using NetworkMeter.View;
+using NetworkMeter.Utils;
 
 namespace NetworkMeter
 {
@@ -35,10 +35,9 @@ namespace NetworkMeter
         {
             _viewModel = new ViewModelLocator().Login;
 
-            Messenger.Default.Register<Uri>(this, "Navigate", (uri) => NavigationService.Navigate(uri));
+            Messenger.Default.Register<Uri>(this, NavigationViewModel.READ_PROFILE_PAGE, (uri) => NavigationService.Navigate(uri));
 
             _viewModel.hideAllMessages();
-            _viewModel.verifyIfUserIsLoggedIn();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -49,16 +48,6 @@ namespace NetworkMeter
             string hash = new CryptoUtils().toSHA256(password);
 
             _viewModel.validateCredentials(username, hash);
-        }
-
-        private void QuickLoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            StorageUtils storageUtils = new StorageUtils();
-
-            string username = storageUtils.Get(storageUtils.USERNAME);
-            string password = storageUtils.Get(storageUtils.PASSWORD);
-
-            _viewModel.validateCredentials(username, password);
         }
 
         private void loginTextBlock_TextChanged(object sender, TextChangedEventArgs e)

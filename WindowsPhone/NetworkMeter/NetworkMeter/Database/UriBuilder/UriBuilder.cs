@@ -13,9 +13,12 @@ namespace NetworkMeter.Database.UriBuilder
 {
     public class UriBuilder
     {
+        private static readonly string API_KEY = "clPjlSOPUfCXe0ZA5vaZtEMsBsgq_g3y";
+        private static readonly string DATABASE_NAME = "networkmeter";
+
         private string getDatabaseUriFragment()
         {
-            return "https://api.mongolab.com/api/1/databases/" + DatabaseResources.database;
+            return "https://api.mongolab.com/api/1/databases/" + DATABASE_NAME;
         }
 
         private string getCollectionUriFragment(string collection)
@@ -25,7 +28,7 @@ namespace NetworkMeter.Database.UriBuilder
 
         private string getApiKeyUriFragment()
         {
-            return "?apiKey=" + DatabaseResources.apiKey;
+            return "?apiKey=" + API_KEY;
         }
 
         protected string list(string collection, string query)

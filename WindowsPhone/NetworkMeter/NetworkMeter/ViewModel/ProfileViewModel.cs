@@ -11,16 +11,35 @@ using System.Windows.Shapes;
 using NetworkMeter.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using NetworkMeter.Database.UriBuilder;
 using System.Windows.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight;
 using NetworkMeter.Utils;
+using Microsoft.Phone.Shell;
+using NetworkMeter.Resources;
+using NetworkMeter.Utils.Database;
+using RestSharp;
+using Newtonsoft.Json.Linq;
 
 namespace NetworkMeter.ViewModel
 {
     public class ProfileViewModel : NavigationViewModel
     {
+        private bool _IsNoUsersFoundErrorMessageVisible = false;
+
+        public bool IsNoUsersFoundErrorMessageVisible
+        {
+            get { return _IsNoUsersFoundErrorMessageVisible; }
+            set
+            {
+                if (_IsNoUsersFoundErrorMessageVisible != value)
+                {
+                    _IsNoUsersFoundErrorMessageVisible = value;
+                    RaisePropertyChanged("IsNoUsersFoundErrorMessageVisible");
+                }
+            }
+        }
+
         private bool _IsProfileNameErrorMessageVisible = false;
 
         public bool IsProfileNameErrorMessageVisible
@@ -48,6 +67,18 @@ namespace NetworkMeter.ViewModel
                     _IsProfileSurnameErrorMessageVisible = value;
                     RaisePropertyChanged("IsProfileSurnameErrorMessageVisible");
                 }
+            }
+        }
+
+        private List<Profile> _Profiles;
+
+        public List<Profile> Profiles
+        {
+            get { return _Profiles; }
+            set
+            {
+                _Profiles = value;
+                RaisePropertyChanged("Profiles");
             }
         }
 
@@ -96,26 +127,12 @@ namespace NetworkMeter.ViewModel
 
         public void LoadEditProfile()
         {
-            Profile p = GetStoredProfile(StorageUtils.EDIT_PROFILE);
-            if (p != null)
-            {
-                EditProfile = p;
-            }
-            else
-            {
-                InitEditProfile();
-            }
+            EditProfile = GetStoredProfile(StorageUtils.EDIT_PROFILE);
         }
 
         public void LoadCurrentProfile()
         {
             CurrentProfile = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-        }
-
-        public void InitEditProfile()
-        {
-            EditProfile = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-            StoreProfile(StorageUtils.EDIT_PROFILE, EditProfile);
         }
 
         public void ShowProfileNameErrorMessage()
@@ -162,29 +179,152 @@ namespace NetworkMeter.ViewModel
             }
         }
 
+        public IApplicationBar CreateReadProfilePageAppBar()
+        {
+            ApplicationBar bar = new ApplicationBar();
+
+            ApplicationBarIconButton editButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Edit.png", UriKind.Relative));
+            editButton.Text = LocalizationResources.Edit;
+            editButton.Click += new EventHandler(EditButton_Click);
+            bar.Buttons.Add(editButton);
+
+            return bar;
+        }
+
+        public void EditButton_Click(object sender, EventArgs e)
+        {
+            Profile p = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
+            LoadProfile(p.Username);
+        }
+
+        public IApplicationBar CreateEditProfilePageAppBar()
+        {
+            ApplicationBar bar = new ApplicationBar();
+
+            ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Save.png", UriKind.Relative));
+            saveButton.Text = LocalizationResources.Save;
+            saveButton.Click += new EventHandler(SaveButton_Click);
+            bar.Buttons.Add(saveButton);
+
+            return bar;
+        }
+
+        public void SaveButton_Click(object sender, EventArgs e)
+        {
+            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
+            Profile ep = GetStoredProfile(StorageUtils.EDIT_PROFILE);
+
+            if (!String.IsNullOrWhiteSpace(ep.Name) && !String.IsNullOrWhiteSpace(ep.Surname))
+            {
+                RestClient client = ProfileRestUtils.getClient();
+                RestRequest request = ProfileRestUtils.delete(ep.Oid);
+                client.ExecuteAsync(request, response =>
+                {
+                    LoadAllProfiles();
+                });
+
+                if (ep.Username.Equals(cp.Username))
+                {
+                    StoreProfile(StorageUtils.CURRENT_PROFILE, ep);
+                }
+
+                if (Profile.ROLE_ADMIN.Equals(cp.Role))
+                {
+                    SendToAllProfilePage();
+                }
+                else
+                {
+                    SendToReadProfilePage();
+                }
+            }
+        }
+
         public void UpdateEditProfile(string name, string surname, DateTime dateOfBirth)
         {
             Profile p = GetStoredProfile(StorageUtils.EDIT_PROFILE);
             p.Name = name;
             p.Surname = surname;
             p.DateOfBirth = dateOfBirth;
-
             StoreProfile(StorageUtils.EDIT_PROFILE, p);
         }
 
-        public void SaveNewProfile(string name, string surname, DateTime dateOfBirth)
+        public void LoadProfile(string username)
         {
-            if (!String.IsNullOrWhiteSpace(name) && !String.IsNullOrWhiteSpace(surname))
+            RestClient client = ProfileRestUtils.getClient();
+            RestRequest request = ProfileRestUtils.getByUsername(username);
+            client.ExecuteAsync(request, response =>
             {
-                Profile p = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-                p.Name = name;
-                p.Surname = surname;
-                p.DateOfBirth = dateOfBirth;
+                LoadProfile_DownloadStringCompleted(response);
+            });
+        }
 
-                StoreProfile(StorageUtils.CURRENT_PROFILE, p);
-
-                SendToReadProfilePage();
+        private void LoadProfile_DownloadStringCompleted(IRestResponse response)
+        {
+            if (response.ErrorException != null)
+            {
+                ShowNoProfileFoundMessageBox();
+                return;
             }
+
+            string json = response.Content;
+            if (String.IsNullOrWhiteSpace(json))
+            {
+                ShowNoProfileFoundMessageBox();
+                return;
+            }
+
+            List<Profile> profiles = JsonConvert.DeserializeObject<List<Profile>>(json);
+
+            if (profiles == null || profiles.Count == 0)
+            {
+                ShowNoProfileFoundMessageBox();
+                return;
+            }
+
+            Profile profile = profiles[0];
+
+            StorageUtils.Set(StorageUtils.EDIT_PROFILE, JsonUtils.toJson<Profile>(profile));
+
+            SendToEditProfilePage();
+        }
+
+        private void ShowNoProfileFoundMessageBox()
+        {
+            MessageBox.Show(LocalizationResources.NoProfileFoundErrorMessage);
+        }
+
+        public void LoadAllProfiles()
+        {
+            RestClient client = ProfileRestUtils.getClient();
+            RestRequest request = ProfileRestUtils.getAll();
+            client.ExecuteAsync(request, response =>
+            {
+                LoadAllProfiles_DownloadStringCompleted(response);
+            });
+        }
+
+        private void LoadAllProfiles_DownloadStringCompleted(IRestResponse response)
+        {
+            if (response.ErrorException != null)
+            {
+                return;
+            }
+
+            string json = response.Content;
+            if (String.IsNullOrWhiteSpace(json))
+            {
+                return;
+            }
+
+            List<Profile> profiles = JsonConvert.DeserializeObject<List<Profile>>(json);
+
+            if (profiles == null || profiles.Count == 0)
+            {
+                return;
+            }
+
+            profiles.Sort();
+            Profiles = profiles;
         }
     }
 }

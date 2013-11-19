@@ -12,15 +12,14 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using NetworkMeter.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
-using NetworkMeter.Utils;
 
-namespace NetworkMeter.View.Profile
+namespace NetworkMeter.View.User
 {
-    public partial class ReadProfilePage : PhoneApplicationPage
+    public partial class AllProfilePage : PhoneApplicationPage
     {
         private ProfileViewModel _viewModel;
 
-        public ReadProfilePage()
+        public AllProfilePage()
         {
             InitializeComponent();
             Loaded += OnLoaded;
@@ -32,9 +31,14 @@ namespace NetworkMeter.View.Profile
 
             Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_EDIT_PAGE, (uri) => NavigationService.Navigate(uri));
 
-            _viewModel.LoadCurrentProfile();
+            _viewModel.LoadAllProfiles();
+        }
 
-            ApplicationBar = _viewModel.CreateReadProfilePageAppBar();
+        private void ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+            Model.Profile p = listBox.SelectedItem as Model.Profile;
+            _viewModel.LoadProfile(p.Username); 
         }
     }
 }

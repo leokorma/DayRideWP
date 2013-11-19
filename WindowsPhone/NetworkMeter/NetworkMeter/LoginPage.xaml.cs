@@ -34,10 +34,10 @@ namespace NetworkMeter
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             _viewModel = new ViewModelLocator().Login;
-
-            Messenger.Default.Register<Uri>(this, NavigationViewModel.READ_PROFILE_PAGE, (uri) => NavigationService.Navigate(uri));
-
             _viewModel.hideAllMessages();
+
+            Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_READ_PAGE, (uri) => NavigationService.Navigate(uri));
+            Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_ALL_PAGE, (uri) => NavigationService.Navigate(uri));
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

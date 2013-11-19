@@ -129,6 +129,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
@@ -138,8 +141,14 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NoProfileFoundErrorMessage" xml:space="preserve">
+    <value>No profile was found.</value>
+  </data>
   <data name="NoUserFoundErrorMessage" xml:space="preserve">
     <value>User no found.</value>
+  </data>
+  <data name="NoUsersFoundErrorMessage" xml:space="preserve">
+    <value>No Users Found</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -156,11 +165,17 @@
   <data name="ProfileNameErrorMessage" xml:space="preserve">
     <value>Name must not be empty</value>
   </data>
+  <data name="Profiles" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
   <data name="ProfileSurnameErrorMessage" xml:space="preserve">
     <value>Surname must not be empty</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SorryBut" xml:space="preserve">
+    <value>Sorry but...</value>
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Surname</value>
@@ -170,8 +185,5 @@
   </data>
   <data name="UsernameErrorMessage" xml:space="preserve">
     <value>Username must not be empty</value>
-  </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
   </data>
 </root>

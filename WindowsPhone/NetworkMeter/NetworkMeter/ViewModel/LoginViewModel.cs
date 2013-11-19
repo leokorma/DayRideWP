@@ -11,31 +11,18 @@ using System.Windows.Shapes;
 using NetworkMeter.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using NetworkMeter.Database.UriBuilder;
 using System.Windows.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight;
 using NetworkMeter.Utils;
+using NetworkMeter.Resources;
+using NetworkMeter.Utils.Database;
+using RestSharp;
 
 namespace NetworkMeter.ViewModel
 {
     public class LoginViewModel : NavigationViewModel
     {
-        private bool _IsLoginErrorMessageVisible = false;
-
-        public bool IsLoginErrorMessageVisible
-        {
-            get { return _IsLoginErrorMessageVisible; }
-            set
-            {
-                if (_IsLoginErrorMessageVisible != value)
-                {
-                    _IsLoginErrorMessageVisible = value;
-                    RaisePropertyChanged("IsLoginErrorMessageVisible");
-                }
-            }
-        }
-
         private bool _IsUsernameErrorMessageVisible = false;
 
         public bool IsUsernameErrorMessageVisible
@@ -66,21 +53,6 @@ namespace NetworkMeter.ViewModel
             }
         }
 
-        private bool _IsNoUserFoundErrorMessageVisible = false;
-
-        public bool IsNoUserFoundErrorMessageVisible
-        {
-            get { return _IsNoUserFoundErrorMessageVisible; }
-            set
-            {
-                if (_IsNoUserFoundErrorMessageVisible != value)
-                {
-                    _IsNoUserFoundErrorMessageVisible = value;
-                    RaisePropertyChanged("IsNoUserFoundErrorMessageVisible");
-                }
-            }
-        }
-
         private bool _IsQuickLoginButtonVisible = false;
 
         public bool IsQuickLoginButtonVisible
@@ -98,22 +70,8 @@ namespace NetworkMeter.ViewModel
 
         public void hideAllMessages()
         {
-            IsLoginErrorMessageVisible = false;
             IsUsernameErrorMessageVisible = false;
             IsPasswordErrorMessageVisible = false;
-            IsNoUserFoundErrorMessageVisible = false;
-        }
-
-        public void showNoUserFoundErrorMessage()
-        {
-            hideAllMessages();
-            IsNoUserFoundErrorMessageVisible = true;
-        }
-
-        public void showLoginErrorMessage()
-        {
-            hideAllMessages();
-            IsLoginErrorMessageVisible = true;
         }
 
         public void showUsernameErrorMessage()
@@ -142,28 +100,29 @@ namespace NetworkMeter.ViewModel
                 return;
             }
 
-            string uri = new ProfileUriBuilder().listByUsernameAndPassword(username, password);
-
-            WebClient client = new WebClient();
-            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
-            client.DownloadStringAsync(new Uri(uri));
+            RestClient client = ProfileRestUtils.getClient();
+            RestRequest request = ProfileRestUtils.getByUsernameAndPassword(username, password);
+            client.ExecuteAsync(request, response =>
+            {
+                OnDownloadComplete(response);
+            });
         }
 
         /**
          * Callback function for when the WebClient has finalize reaching data (json with weather data) from Yahoo
          */
-        private void client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private void OnDownloadComplete(IRestResponse response)
         {
-            if (e.Error != null)
+            if (response.ErrorException != null)
             {
-                showLoginErrorMessage();
+                showLoginErrorMessageBox();
                 return;
             }
 
-            string json = e.Result;
+            string json = response.Content;
             if (String.IsNullOrWhiteSpace(json))
             {
-                showLoginErrorMessage();
+                showLoginErrorMessageBox();
                 return;
             }
 
@@ -171,7 +130,7 @@ namespace NetworkMeter.ViewModel
 
             if (profiles == null || profiles.Count == 0)
             {
-                showNoUserFoundErrorMessage();
+                showNoUserFoundErrorMessageBox();
                 return;
             }
 
@@ -179,7 +138,24 @@ namespace NetworkMeter.ViewModel
 
             StorageUtils.Set(StorageUtils.CURRENT_PROFILE, JsonUtils.toJson<Profile>(profile));
 
-            SendToReadProfilePage();
+            if (Profile.ROLE_ADMIN.Equals(profile.Role))
+            {
+                SendToAllProfilePage();
+            }
+            else
+            {
+                SendToReadProfilePage();
+            }
+        }
+
+        private void showNoUserFoundErrorMessageBox()
+        {
+            MessageBox.Show(LocalizationResources.NoUserFoundErrorMessage);
+        }
+
+        private void showLoginErrorMessageBox()
+        {
+            MessageBox.Show(LocalizationResources.LoginErrorMessage);
         }
 
         private bool isUsernameValid(string username)

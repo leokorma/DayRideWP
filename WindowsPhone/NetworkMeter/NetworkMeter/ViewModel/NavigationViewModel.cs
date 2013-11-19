@@ -15,19 +15,26 @@ namespace NetworkMeter.ViewModel
 {
     public abstract class NavigationViewModel : ViewModelBase
     {
-        public static readonly string READ_PROFILE_PAGE = "page.profile.read";
-        public static readonly string EDIT_PROFILE_PAGE = "page.profile.edit";
+        public static readonly string PROFILE_READ_PAGE = "page.profile.read";
+        public static readonly string PROFILE_EDIT_PAGE = "page.profile.edit";
+        public static readonly string PROFILE_ALL_PAGE = "page.profile.all";
 
         public void SendToReadProfilePage()
         {
             Uri uri = new Uri("/View/Profile/ReadProfilePage.xaml", UriKind.Relative);
-            Messenger.Default.Send<Uri>(uri, READ_PROFILE_PAGE);
+            Messenger.Default.Send<Uri>(uri, PROFILE_READ_PAGE);
         }
 
         public void SendToEditProfilePage()
         {
             Uri uri = new Uri("/View/Profile/EditProfilePage.xaml", UriKind.Relative);
-            Messenger.Default.Send<Uri>(uri, EDIT_PROFILE_PAGE);
+            Messenger.Default.Send<Uri>(uri, PROFILE_EDIT_PAGE);
+        }
+
+        public void SendToAllProfilePage()
+        {
+            Uri uri = new Uri("/View/Profile/AllProfilePage.xaml", UriKind.Relative);
+            Messenger.Default.Send<Uri>(uri, PROFILE_ALL_PAGE);
         }
     }
 }

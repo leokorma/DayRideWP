@@ -24,38 +24,24 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.ApplicationName}" />
-            <TextBlock x:Name="PageTitle" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Profile}" />
+            <TextBlock x:Name="PageTitle" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.EditProfile}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=Profile}">
             <StackPanel>
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Name}"/>
-                <TextBox Text="{Binding Path=EditProfile.Name}" Name="NameTextBox" KeyUp="NameTextBox_KeyUp" />
+                <TextBox Text="{Binding Path=EditProfile.Name}" Name="NameTextBox" TextChanged="NameTextBox_TextChanged" />
                 <TextBlock Name="ProfileNameErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.ProfileNameErrorMessage}" Style="{StaticResource PhoneTextAccentStyle}" Visibility="{Binding Path=IsProfileNameErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
 
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Surname}" Margin="0,10,0,0" />
-                <TextBox Text="{Binding Path=EditProfile.Surname}" Name="SurnameTextBox" KeyUp="SurnameTextBox_KeyUp" />
+                <TextBox Text="{Binding Path=EditProfile.Surname}" Name="SurnameTextBox" TextChanged="SurnameTextBox_TextChanged" />
                 <TextBlock Name="ProfileSurnameErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.ProfileSurnameErrorMessage}" Style="{StaticResource PhoneTextAccentStyle}" Visibility="{Binding Path=IsProfileSurnameErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
 
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.DateOfBirth}" Margin="0,10,0,0" />
-                <toolkit:DatePicker ValueStringFormat="{}{0:dd MMMM, yyyy}" Value="{Binding Path=EditProfile.DateOfBirth}" Name="DateOfBirthDatePicker" Tap="DateOfBirthDatePicker_Tap" />
-
-                <Button Content="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Save}" Margin="0,10,0,0" Name="SaveButton" Click="SaveButton_Click" />
+                <toolkit:DatePicker ValueStringFormat="{}{0:dd MMMM, yyyy}" Value="{Binding Path=EditProfile.DateOfBirth}" Name="DateOfBirthDatePicker"/>
             </StackPanel>
         </Grid>
     </Grid>
-
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

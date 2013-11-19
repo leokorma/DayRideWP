@@ -29,32 +29,32 @@ namespace NetworkMeter.View.Profile
         {
             _viewModel = new ViewModelLocator().Profile;
 
-            Messenger.Default.Register<Uri>(this, NavigationViewModel.READ_PROFILE_PAGE, (uri) => NavigationService.Navigate(uri));
+            Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_READ_PAGE, (uri) => NavigationService.Navigate(uri));
+            Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_ALL_PAGE, (uri) => NavigationService.Navigate(uri));
 
             _viewModel.LoadEditProfile();
+
+            ApplicationBar = _viewModel.CreateEditProfilePageAppBar();
+
+            DateOfBirthDatePicker.ValueChanged += new EventHandler<DateTimeValueChangedEventArgs>(DateOfBirthDatePicker_ValueChanged);
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void DateOfBirthDatePicker_ValueChanged(object sender, DateTimeValueChangedEventArgs e)
         {
-            string name = NameTextBox.Text;
-            string surname = SurnameTextBox.Text;
-            DateTime dateOfBirth = (DateTime)DateOfBirthDatePicker.Value;
-
-            _viewModel.SaveNewProfile(name, surname, dateOfBirth);
+            StoreOnTextChanged();
         }
 
-        private void NameTextBox_KeyUp(object sender, KeyEventArgs e)
+        private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _viewModel.ValidateName(NameTextBox.Text);
+            StoreOnTextChanged();
         }
 
-        private void SurnameTextBox_KeyUp(object sender, KeyEventArgs e)
+        private void SurnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _viewModel.ValidateSurname(SurnameTextBox.Text);
+            StoreOnTextChanged();
         }
 
-        private void DateOfBirthDatePicker_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
+        private void StoreOnTextChanged() {
             string name = NameTextBox.Text;
             string surname = SurnameTextBox.Text;
             DateTime dateOfBirth = (DateTime)DateOfBirthDatePicker.Value;

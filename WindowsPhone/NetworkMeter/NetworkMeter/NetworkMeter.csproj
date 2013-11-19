@@ -66,6 +66,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp.WindowsPhone">
+      <HintPath>..\packages\RestSharp.104.3.3\lib\sl4-wp71\RestSharp.WindowsPhone.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -87,14 +90,14 @@
       <DependentUpon>LocalizationResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\CryptoUtils.cs" />
+    <Compile Include="Utils\Database\RestUtils.cs" />
+    <Compile Include="Utils\Database\ProfileRestUtils.cs" />
     <Compile Include="Utils\LocalizationUtils.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\JsonUtils.cs" />
     <Compile Include="Model\Profile.cs" />
-    <Compile Include="Database\UriBuilder\ProfileUriBuilder.cs" />
-    <Compile Include="Database\UriBuilder\UriBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\StorageUtils.cs" />
     <Compile Include="ViewModel\NavigationViewModel.cs" />
@@ -106,6 +109,9 @@
     </Compile>
     <Compile Include="View\Profile\ReadProfilePage.xaml.cs">
       <DependentUpon>ReadProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Profile\AllProfilePage.xaml.cs">
+      <DependentUpon>AllProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SplashControl.xaml.cs">
       <DependentUpon>SplashControl.xaml</DependentUpon>
@@ -128,6 +134,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Profile\AllProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\SplashControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +155,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Toolkit.Content\ApplicationBar.Edit.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Save.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />

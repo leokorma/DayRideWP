@@ -97,6 +97,15 @@ namespace NetworkMeter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Profile.
+        /// </summary>
+        public static string EditProfile {
+            get {
+                return ResourceManager.GetString("EditProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
@@ -124,11 +133,29 @@ namespace NetworkMeter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No profile was found..
+        /// </summary>
+        public static string NoProfileFoundErrorMessage {
+            get {
+                return ResourceManager.GetString("NoProfileFoundErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User no found..
         /// </summary>
         public static string NoUserFoundErrorMessage {
             get {
                 return ResourceManager.GetString("NoUserFoundErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Users Found.
+        /// </summary>
+        public static string NoUsersFoundErrorMessage {
+            get {
+                return ResourceManager.GetString("NoUsersFoundErrorMessage", resourceCulture);
             }
         }
         
@@ -178,6 +205,15 @@ namespace NetworkMeter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profiles.
+        /// </summary>
+        public static string Profiles {
+            get {
+                return ResourceManager.GetString("Profiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Surname must not be empty.
         /// </summary>
         public static string ProfileSurnameErrorMessage {
@@ -192,6 +228,15 @@ namespace NetworkMeter.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry but....
+        /// </summary>
+        public static string SorryBut {
+            get {
+                return ResourceManager.GetString("SorryBut", resourceCulture);
             }
         }
         
@@ -219,15 +264,6 @@ namespace NetworkMeter.Resources {
         public static string UsernameErrorMessage {
             get {
                 return ResourceManager.GetString("UsernameErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Users.
-        /// </summary>
-        public static string Users {
-            get {
-                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
     }

@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace NetworkMeter.Model
 {
@@ -18,8 +19,7 @@ namespace NetworkMeter.Model
         public static readonly string ROLE_USER = "ROLE_USER";
         public static readonly string ROLE_ADMIN = "ROLE_ADMIN";
 
-        public JContainer _id { get; set; }
-        public long Id { get; set; }
+        public Dictionary<string, string> _id { get; set; }
 
         public string Username { get; set; }
         public string Password { get; set; }
@@ -29,14 +29,19 @@ namespace NetworkMeter.Model
         public DateTime DateOfBirth { get; set; }
         public string Role { get; set; }
 
+        [JsonIgnore]
         public string FullName
         {
             get { return Name + " " + Surname; }
         }
 
+        [JsonIgnore]
         public string Oid
         {
-            get { return (_id.First as JProperty).Value.ToString(); }
+            get
+            {
+                return (_id != null && _id.Count > 0) ? _id["$oid"] : null;
+            }
         }
 
         public int CompareTo(Profile other)

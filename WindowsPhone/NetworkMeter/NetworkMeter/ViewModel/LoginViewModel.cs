@@ -17,7 +17,6 @@ using GalaSoft.MvvmLight;
 using NetworkMeter.Utils;
 using NetworkMeter.Resources;
 using NetworkMeter.Utils.Database;
-using RestSharp;
 
 namespace NetworkMeter.ViewModel
 {
@@ -100,26 +99,25 @@ namespace NetworkMeter.ViewModel
                 return;
             }
 
-            RestClient client = ProfileRestUtils.getClient();
-            RestRequest request = ProfileRestUtils.getByUsernameAndPassword(username, password);
-            client.ExecuteAsync(request, response =>
-            {
-                OnDownloadComplete(response);
-            });
+            Uri uri = new Uri(ProfileUriUtils.all());
+
+            WebClient client = new WebClient();
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(OnDownloadComplete);
+            client.DownloadStringAsync(uri, username);
         }
 
         /**
          * Callback function for when the WebClient has finalize reaching data (json with weather data) from Yahoo
          */
-        private void OnDownloadComplete(IRestResponse response)
+        private void OnDownloadComplete(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (response.ErrorException != null)
+            if (e.Error != null)
             {
                 showLoginErrorMessageBox();
                 return;
             }
 
-            string json = response.Content;
+            string json = e.Result;
             if (String.IsNullOrWhiteSpace(json))
             {
                 showLoginErrorMessageBox();
@@ -128,24 +126,35 @@ namespace NetworkMeter.ViewModel
 
             List<Profile> profiles = JsonConvert.DeserializeObject<List<Profile>>(json);
 
-            if (profiles == null || profiles.Count == 0)
+            if (profiles != null && profiles.Count > 0)
             {
-                showNoUserFoundErrorMessageBox();
-                return;
+                Profile profile = null;
+
+                string username = e.UserState.ToString();
+
+                foreach (Profile p in profiles)
+                {
+                    if (p.Username == username)
+                    {
+                        profile = p;
+
+                        StorageUtils.Set(StorageUtils.CURRENT_PROFILE, JsonUtils.toJson<Profile>(profile));
+
+                        if (Profile.ROLE_ADMIN.Equals(profile.Role))
+                        {
+                            SendToAllProfilePage();
+                        }
+                        else
+                        {
+                            SendToReadProfilePage();
+                        }
+
+                        return;
+                    }                    
+                }
             }
 
-            Profile profile = profiles[0];
-
-            StorageUtils.Set(StorageUtils.CURRENT_PROFILE, JsonUtils.toJson<Profile>(profile));
-
-            if (Profile.ROLE_ADMIN.Equals(profile.Role))
-            {
-                SendToAllProfilePage();
-            }
-            else
-            {
-                SendToReadProfilePage();
-            }
+            showNoUserFoundErrorMessageBox();
         }
 
         private void showNoUserFoundErrorMessageBox()

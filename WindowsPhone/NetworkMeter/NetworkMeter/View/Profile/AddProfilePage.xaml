@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage 
-    x:Class="NetworkMeter.View.Profile.EditProfilePage"
+    x:Class="NetworkMeter.View.Profile.AddProfilePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -24,20 +24,22 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.ApplicationName}" />
-            <TextBlock x:Name="PageTitle" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.EditProfile}" />
+            <TextBlock x:Name="PageTitle" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.AddProfile}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=Profile}">
             <StackPanel>
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Name}"/>
-                <TextBox Text="{Binding Path=EditProfile.Name}" Name="NameTextBox" TextChanged="NameTextBox_TextChanged" />
+                <TextBox Text="{Binding Path=AddProfile.Name}" Name="NameTextBox" TextChanged="NameTextBox_TextChanged" />
 
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Surname}" Margin="0,10,0,0" />
-                <TextBox Text="{Binding Path=EditProfile.Surname}" Name="SurnameTextBox" TextChanged="SurnameTextBox_TextChanged" />
-                
+                <TextBox Text="{Binding Path=AddProfile.Surname}" Name="SurnameTextBox" TextChanged="SurnameTextBox_TextChanged" />
+
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.DateOfBirth}" Margin="0,10,0,0" />
-                <toolkit:DatePicker ValueStringFormat="{}{0:dd MMMM, yyyy}" Value="{Binding Path=EditProfile.DateOfBirth}" Name="DateOfBirthDatePicker"/>
+                <toolkit:DatePicker ValueStringFormat="{}{0:dd MMMM, yyyy}" Value="{Binding Path=AddProfile.DateOfBirth}" Name="DateOfBirthDatePicker"/>
+
+                <CheckBox Content="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.AdminCheckbox}" Name="AdminRoleCheckBox" Click="AdminRoleCheckBox_Click" />
             </StackPanel>
         </Grid>
     </Grid>

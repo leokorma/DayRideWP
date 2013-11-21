@@ -16,6 +16,7 @@ namespace NetworkMeter.Utils
     {
         public static readonly string CURRENT_PROFILE = "profile.current";
         public static readonly string EDIT_PROFILE = "profile.edit";
+        public static readonly string ADD_PROFILE = "profile.add";
 
         private static IsolatedStorageSettings getSettings()
         {

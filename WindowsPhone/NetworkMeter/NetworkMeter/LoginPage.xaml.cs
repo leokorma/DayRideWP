@@ -45,7 +45,7 @@ namespace NetworkMeter
             string username = UsernameTextBlock.Text;
             string password = PasswordTextBlock.Password;
 
-            string hash = new CryptoUtils().toSHA256(password);
+            string hash = CryptoUtils.toSHA256(password);
 
             _viewModel.validateCredentials(username, hash);
         }

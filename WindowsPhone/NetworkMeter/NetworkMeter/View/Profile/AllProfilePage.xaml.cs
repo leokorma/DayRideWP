@@ -30,6 +30,9 @@ namespace NetworkMeter.View.User
             _viewModel = new ViewModelLocator().Profile;
 
             Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_EDIT_PAGE, (uri) => NavigationService.Navigate(uri));
+            Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_ADD_PAGE, (uri) => NavigationService.Navigate(uri));
+
+            ApplicationBar = _viewModel.CreateAllProfilePageAppBar();
 
             _viewModel.LoadAllProfiles();
         }
@@ -38,7 +41,10 @@ namespace NetworkMeter.View.User
         {
             ListBox listBox = (ListBox)sender;
             Model.Profile p = listBox.SelectedItem as Model.Profile;
-            _viewModel.LoadProfile(p.Username); 
+            if (p != null)
+            {
+                _viewModel.LoadProfile(p.Oid);
+            }
         }
     }
 }

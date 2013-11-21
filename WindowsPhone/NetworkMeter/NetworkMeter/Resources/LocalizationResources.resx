@@ -186,4 +186,22 @@
   <data name="UsernameErrorMessage" xml:space="preserve">
     <value>Username must not be empty</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddProfile" xml:space="preserve">
+    <value>Add Profile</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="AdminCheckbox" xml:space="preserve">
+    <value>Enable Admin Privileges</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>

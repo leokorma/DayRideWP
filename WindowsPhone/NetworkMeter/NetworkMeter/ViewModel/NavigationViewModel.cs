@@ -17,6 +17,7 @@ namespace NetworkMeter.ViewModel
     {
         public static readonly string PROFILE_READ_PAGE = "page.profile.read";
         public static readonly string PROFILE_EDIT_PAGE = "page.profile.edit";
+        public static readonly string PROFILE_ADD_PAGE = "page.profile.add";
         public static readonly string PROFILE_ALL_PAGE = "page.profile.all";
 
         public void SendToReadProfilePage()
@@ -35,6 +36,12 @@ namespace NetworkMeter.ViewModel
         {
             Uri uri = new Uri("/View/Profile/AllProfilePage.xaml", UriKind.Relative);
             Messenger.Default.Send<Uri>(uri, PROFILE_ALL_PAGE);
+        }
+
+        public void SendToAddProfilePage()
+        {
+            Uri uri = new Uri("/View/Profile/AddProfilePage.xaml", UriKind.Relative);
+            Messenger.Default.Send<Uri>(uri, PROFILE_ADD_PAGE);
         }
     }
 }

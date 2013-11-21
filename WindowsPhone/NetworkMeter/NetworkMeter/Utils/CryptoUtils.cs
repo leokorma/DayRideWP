@@ -15,7 +15,7 @@ namespace NetworkMeter.Utils
 {
     public class CryptoUtils
     {
-        public string toSHA256(string str) {
+        public static string toSHA256(string str) {
             byte[] data = Encoding.UTF8.GetBytes(str);
             SHA256 shaM = new SHA256Managed();
 

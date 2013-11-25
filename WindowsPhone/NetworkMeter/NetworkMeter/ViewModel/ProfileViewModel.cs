@@ -21,8 +21,14 @@ using DayRide.Utils.Database;
 
 namespace DayRide.ViewModel
 {
+    /**
+     * ViewModel for Profile Views (all of them)
+     */
     public class ProfileViewModel : NavigationViewModel
     {
+        /**
+         * Objects to keep data and allow MVVM functionality
+         */
         private List<Profile> _Profiles;
 
         public List<Profile> Profiles
@@ -71,24 +77,7 @@ namespace DayRide.ViewModel
             }
         }
 
-        public Profile GetStoredProfile(string key)
-        {
-            if (!System.ComponentModel.DesignerProperties.IsInDesignTool)
-            {
-                if (StorageUtils.Contains(key))
-                {
-                    string json = StorageUtils.Get(key);
-
-                    return JsonUtils.toObj<Profile>(json);
-                }
-            }
-            return null;
-        }
-
-        public void StoreProfile(string key, Profile p)
-        {
-            StorageUtils.Set(key, JsonUtils.toJson<Profile>(p));
-        }
+        //************************************
 
         public void LoadAddProfile()
         {
@@ -105,124 +94,23 @@ namespace DayRide.ViewModel
             CurrentProfile = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
         }
 
-        public IApplicationBar CreateReadProfilePageAppBar()
+        private Profile GetStoredProfile(string key)
         {
-            ApplicationBar bar = new ApplicationBar();
+            if (!System.ComponentModel.DesignerProperties.IsInDesignTool)
+            {
+                if (StorageUtils.Contains(key))
+                {
+                    string json = StorageUtils.Get(key);
 
-            ApplicationBarIconButton editButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Edit.png", UriKind.Relative));
-            editButton.Text = LocalizationResources.Edit;
-            editButton.Click += new EventHandler(EditButton_Click);
-            bar.Buttons.Add(editButton);
-
-            return bar;
+                    return JsonUtils.toObj<Profile>(json);
+                }
+            }
+            return null;
         }
 
-        public void EditButton_Click(object sender, EventArgs e)
+        public void StoreProfile(string key, Profile p)
         {
-            Profile p = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-            LoadProfile(p.Oid);
-        }
-
-        public IApplicationBar CreateEditProfilePageAppBar()
-        {
-            ApplicationBar bar = new ApplicationBar();
-
-            ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Save.png", UriKind.Relative));
-            saveButton.Text = LocalizationResources.Save;
-            saveButton.Click += new EventHandler(SaveButton_Click);
-            bar.Buttons.Add(saveButton);
-
-            ApplicationBarIconButton cancelButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Cancel.png", UriKind.Relative));
-            cancelButton.Text = LocalizationResources.Cancel;
-            cancelButton.Click += new EventHandler(CancelButton_Click);
-            bar.Buttons.Add(cancelButton);
-
-            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-           
-            if (Profile.ROLE_ADMIN.Equals(cp.Role))
-            {
-                ApplicationBarMenuItem deleteMenuItem = new ApplicationBarMenuItem();
-                deleteMenuItem.Text = LocalizationResources.Delete;
-                deleteMenuItem.Click += new EventHandler(DeleteMenuItem_Click);
-                bar.MenuItems.Add(deleteMenuItem);
-            }          
-
-            return bar;
-        }
-
-        public void DeleteMenuItem_Click(object sender, EventArgs e)
-        {
-            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-            Profile ep = GetStoredProfile(StorageUtils.EDIT_PROFILE);
-
-            DeleteProfile(ep);
-
-            if (Profile.ROLE_ADMIN.Equals(cp.Role))
-            {
-                SendToAllProfilePage();
-            }
-            else
-            {
-                SendToReadProfilePage();
-            }
-        }
-
-        public void CancelButton_Click(object sender, EventArgs e)
-        {
-            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-
-            if (Profile.ROLE_ADMIN.Equals(cp.Role))
-            {
-                SendToAllProfilePage();
-            }
-            else
-            {
-                SendToReadProfilePage();
-            }
-        }
-
-        public void SaveButton_Click(object sender, EventArgs e)
-        {
-            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
-            Profile ep = GetStoredProfile(StorageUtils.EDIT_PROFILE);
-
-            if (String.IsNullOrWhiteSpace(ep.Name))
-            {
-                showProfileNameErrorMessageBox();
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(ep.Surname))
-            {
-                showProfileSurnameErrorMessageBox();
-                return;
-            }
-
-            SaveProfile(ep);
-
-            if (ep.Username.Equals(cp.Username))
-            {
-                StoreProfile(StorageUtils.CURRENT_PROFILE, ep);
-            }
-
-            if (Profile.ROLE_ADMIN.Equals(cp.Role))
-            {
-                SendToAllProfilePage();
-            }
-            else
-            {
-                SendToReadProfilePage();
-            }
-        }
-
-        private void showProfileNameErrorMessageBox()
-        {
-            MessageBox.Show(LocalizationResources.ProfileNameErrorMessage);
-        }
-
-        private void showProfileSurnameErrorMessageBox()
-        {
-            MessageBox.Show(LocalizationResources.ProfileSurnameErrorMessage);
+            StorageUtils.Set(key, JsonUtils.toJson<Profile>(p));
         }
 
         private void DeleteProfile(Profile p)
@@ -296,14 +184,14 @@ namespace DayRide.ViewModel
         {
             if (e.Error != null)
             {
-                ShowNoProfileFoundMessageBox();
+                MessageBoxUtils.ShowNoProfileFoundMessageBox();
                 return;
             }
 
             string json = e.Result;
             if (String.IsNullOrWhiteSpace(json))
             {
-                ShowNoProfileFoundMessageBox();
+                MessageBoxUtils.ShowNoProfileFoundMessageBox();
                 return;
             }
 
@@ -311,18 +199,13 @@ namespace DayRide.ViewModel
 
             if (profile == null)
             {
-                ShowNoProfileFoundMessageBox();
+                MessageBoxUtils.ShowNoProfileFoundMessageBox();
                 return;
             }
 
             StorageUtils.Set(StorageUtils.EDIT_PROFILE, JsonUtils.toJson<Profile>(profile));
 
             SendToEditProfilePage();
-        }
-
-        private void ShowNoProfileFoundMessageBox()
-        {
-            MessageBox.Show(LocalizationResources.NoProfileFoundErrorMessage);
         }
 
         public void LoadAllProfiles()
@@ -358,6 +241,8 @@ namespace DayRide.ViewModel
             Profiles = profiles;
         }
 
+        //****** APPLICATION BARS AND ITEMS EVENT HANDLERS
+
         public IApplicationBar CreateAllProfilePageAppBar()
         {
             ApplicationBar bar = new ApplicationBar();
@@ -368,15 +253,6 @@ namespace DayRide.ViewModel
             bar.Buttons.Add(addButton);
 
             return bar;
-        }
-
-        public void AddButton_Click(object sender, EventArgs e)
-        {
-            Profile profile = new Profile();
-            profile.DateOfBirth = DateTime.Now;
-
-            StoreProfile(StorageUtils.ADD_PROFILE, profile);
-            SendToAddProfilePage();
         }
 
         public IApplicationBar CreateAddProfilePageAppBar()
@@ -396,6 +272,125 @@ namespace DayRide.ViewModel
             return bar;
         }
 
+        public IApplicationBar CreateReadProfilePageAppBar()
+        {
+            ApplicationBar bar = new ApplicationBar();
+
+            ApplicationBarIconButton editButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Edit.png", UriKind.Relative));
+            editButton.Text = LocalizationResources.Edit;
+            editButton.Click += new EventHandler(EditButton_Click);
+            bar.Buttons.Add(editButton);
+
+            return bar;
+        }
+
+        public IApplicationBar CreateEditProfilePageAppBar()
+        {
+            ApplicationBar bar = new ApplicationBar();
+
+            ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Save.png", UriKind.Relative));
+            saveButton.Text = LocalizationResources.Save;
+            saveButton.Click += new EventHandler(SaveButton_Click);
+            bar.Buttons.Add(saveButton);
+
+            ApplicationBarIconButton cancelButton = new ApplicationBarIconButton(new Uri("/Toolkit.Content/ApplicationBar.Cancel.png", UriKind.Relative));
+            cancelButton.Text = LocalizationResources.Cancel;
+            cancelButton.Click += new EventHandler(CancelButton_Click);
+            bar.Buttons.Add(cancelButton);
+
+            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
+
+            if (Profile.ROLE_ADMIN.Equals(cp.Role))
+            {
+                ApplicationBarMenuItem deleteMenuItem = new ApplicationBarMenuItem();
+                deleteMenuItem.Text = LocalizationResources.Delete;
+                deleteMenuItem.Click += new EventHandler(DeleteMenuItem_Click);
+                bar.MenuItems.Add(deleteMenuItem);
+            }
+
+            return bar;
+        }
+
+        public void EditButton_Click(object sender, EventArgs e)
+        {
+            Profile p = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
+            LoadProfile(p.Oid);
+        }
+
+        public void DeleteMenuItem_Click(object sender, EventArgs e)
+        {
+            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
+            Profile ep = GetStoredProfile(StorageUtils.EDIT_PROFILE);
+
+            DeleteProfile(ep);
+
+            if (Profile.ROLE_ADMIN.Equals(cp.Role))
+            {
+                SendToAllProfilePage();
+            }
+            else
+            {
+                SendToReadProfilePage();
+            }
+        }
+
+        public void CancelButton_Click(object sender, EventArgs e)
+        {
+            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
+
+            if (Profile.ROLE_ADMIN.Equals(cp.Role))
+            {
+                SendToAllProfilePage();
+            }
+            else
+            {
+                SendToReadProfilePage();
+            }
+        }
+
+        public void SaveButton_Click(object sender, EventArgs e)
+        {
+            Profile cp = GetStoredProfile(StorageUtils.CURRENT_PROFILE);
+            Profile ep = GetStoredProfile(StorageUtils.EDIT_PROFILE);
+
+            if (String.IsNullOrWhiteSpace(ep.Name))
+            {
+                MessageBoxUtils.showProfileNameErrorMessageBox();
+                return;
+            }
+
+            if (String.IsNullOrWhiteSpace(ep.Surname))
+            {
+                MessageBoxUtils.showProfileSurnameErrorMessageBox();
+                return;
+            }
+
+            SaveProfile(ep);
+
+            if (ep.Username.Equals(cp.Username))
+            {
+                StoreProfile(StorageUtils.CURRENT_PROFILE, ep);
+            }
+
+            if (Profile.ROLE_ADMIN.Equals(cp.Role))
+            {
+                SendToAllProfilePage();
+            }
+            else
+            {
+                SendToReadProfilePage();
+            }
+        }
+
+        public void AddButton_Click(object sender, EventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.DateOfBirth = DateTime.Now;
+
+            StoreProfile(StorageUtils.ADD_PROFILE, profile);
+            SendToAddProfilePage();
+        }
+
         public void NewButton_Click(object sender, EventArgs e)
         {
             Profile ap = GetStoredProfile(StorageUtils.ADD_PROFILE);
@@ -403,13 +398,13 @@ namespace DayRide.ViewModel
 
             if (String.IsNullOrWhiteSpace(ap.Name))
             {
-                showProfileNameErrorMessageBox();
+                MessageBoxUtils.showProfileNameErrorMessageBox();
                 return;
             }
 
             if (String.IsNullOrWhiteSpace(ap.Surname))
             {
-                showProfileSurnameErrorMessageBox();
+                MessageBoxUtils.showProfileSurnameErrorMessageBox();
                 return;
             }
 

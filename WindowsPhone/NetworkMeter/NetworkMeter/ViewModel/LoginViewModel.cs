@@ -20,19 +20,25 @@ using DayRide.Utils.Database;
 
 namespace DayRide.ViewModel
 {
+    /**
+     * ViewModel for Login View
+     */
     public class LoginViewModel : NavigationViewModel
     {
+        /**
+         * Validate credentials against database
+         */
         public void validateCredentials(string username, string password)
         {
             if (!isUsernameValid(username))
             {
-                showUsernameErrorMessageBox();
+                MessageBoxUtils.showUsernameErrorMessageBox();
                 return;
             }
 
             if (!isPasswordValid(password))
             {
-                showPasswordErrorMessageBox();
+                MessageBoxUtils.showPasswordErrorMessageBox();
                 return;
             }
 
@@ -43,31 +49,21 @@ namespace DayRide.ViewModel
             client.DownloadStringAsync(uri, username);
         }
 
-        private void showPasswordErrorMessageBox()
-        {
-            MessageBox.Show(LocalizationResources.PasswordErrorMessage);
-        }
-
-        private void showUsernameErrorMessageBox()
-        {
-            MessageBox.Show(LocalizationResources.UsernameErrorMessage);
-        }
-
         /**
-         * Callback function for when the WebClient has finalize reaching data (json with weather data) from Yahoo
+         * Callback for validate credentials against database
          */
         private void OnDownloadComplete(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                showLoginErrorMessageBox();
+                MessageBoxUtils.showLoginErrorMessageBox();
                 return;
             }
 
             string json = e.Result;
             if (String.IsNullOrWhiteSpace(json))
             {
-                showLoginErrorMessageBox();
+                MessageBoxUtils.showLoginErrorMessageBox();
                 return;
             }
 
@@ -97,21 +93,11 @@ namespace DayRide.ViewModel
                         }
 
                         return;
-                    }                    
+                    }
                 }
             }
 
-            showNoUserFoundErrorMessageBox();
-        }
-
-        private void showNoUserFoundErrorMessageBox()
-        {
-            MessageBox.Show(LocalizationResources.NoUserFoundErrorMessage);
-        }
-
-        private void showLoginErrorMessageBox()
-        {
-            MessageBox.Show(LocalizationResources.LoginErrorMessage);
+            MessageBoxUtils.showNoUserFoundErrorMessageBox();
         }
 
         private bool isUsernameValid(string username)

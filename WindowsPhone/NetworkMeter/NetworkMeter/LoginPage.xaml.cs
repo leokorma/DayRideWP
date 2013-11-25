@@ -20,17 +20,22 @@ using DayRide.Utils;
 
 namespace DayRide
 {
+    /**
+     * View Class to log in
+     */
     public partial class LoginPage : PhoneApplicationPage
     {
         private LoginViewModel _viewModel;
 
-        // Constructor
         public LoginPage()
         {
             InitializeComponent();
             Loaded += OnLoaded;
         }
 
+        /**
+         * When Page loaded, initialize ViewModel, URL listeners and elements' event handlers
+         */
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             _viewModel = new ViewModelLocator().Login;

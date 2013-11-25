@@ -12,6 +12,9 @@ using System.Windows.Shapes;
 
 namespace DayRide.View
 {
+    /**
+     * View Class for Splash User Control
+     */
     public partial class SplashControl : UserControl
     {
         public SplashControl()

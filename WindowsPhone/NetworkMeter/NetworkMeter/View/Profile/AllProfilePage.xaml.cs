@@ -15,6 +15,9 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace DayRide.View.User
 {
+    /**
+    * View Class to list Profiles
+    */
     public partial class AllProfilePage : PhoneApplicationPage
     {
         private ProfileViewModel _viewModel;
@@ -25,6 +28,9 @@ namespace DayRide.View.User
             Loaded += OnLoaded;
         }
 
+        /**
+         * When Page loaded, initialize ViewModel, URL listeners and elements' event handlers
+         */
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             _viewModel = new ViewModelLocator().Profile;

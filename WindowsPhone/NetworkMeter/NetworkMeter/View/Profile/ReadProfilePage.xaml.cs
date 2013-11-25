@@ -16,6 +16,9 @@ using DayRide.Utils;
 
 namespace DayRide.View.Profile
 {
+    /**
+    * View Class to read data from an existing Profile
+    */
     public partial class ReadProfilePage : PhoneApplicationPage
     {
         private ProfileViewModel _viewModel;
@@ -26,6 +29,9 @@ namespace DayRide.View.Profile
             Loaded += OnLoaded;
         }
 
+        /**
+         * When Page loaded, initialize ViewModel, URL listeners and elements' event handlers
+         */
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             _viewModel = new ViewModelLocator().Profile;

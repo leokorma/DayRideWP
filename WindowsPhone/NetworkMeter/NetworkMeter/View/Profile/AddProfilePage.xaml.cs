@@ -15,6 +15,9 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace DayRide.View.Profile
 {
+    /**
+     * View Class to add a new Profile 
+     */
     public partial class AddProfilePage : PhoneApplicationPage
     {
         private ProfileViewModel _viewModel;
@@ -25,6 +28,9 @@ namespace DayRide.View.Profile
             Loaded += OnLoaded;
         }
 
+        /**
+         * When Page loaded, initialize ViewModel, URL listeners and elements' event handlers
+         */
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             _viewModel = new ViewModelLocator().Profile;
@@ -40,20 +46,23 @@ namespace DayRide.View.Profile
 
         private void DateOfBirthDatePicker_ValueChanged(object sender, DateTimeValueChangedEventArgs e)
         {
-            StoreOnTextChanged();
+            StoreOnChange();
         }
 
         private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            StoreOnTextChanged();
+            StoreOnChange();
         }
 
         private void SurnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            StoreOnTextChanged();
+            StoreOnChange();
         }
 
-        private void StoreOnTextChanged()
+        /**
+         * When any user data changes, store it in IsolatedStorage
+         */
+        private void StoreOnChange()
         {
             string name = NameTextBox.Text;
             string surname = SurnameTextBox.Text;
@@ -65,7 +74,7 @@ namespace DayRide.View.Profile
 
         private void AdminRoleCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            StoreOnTextChanged();
+            StoreOnChange();
         }
     }
 }

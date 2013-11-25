@@ -13,6 +13,9 @@ using GalaSoft.MvvmLight;
 
 namespace DayRide.ViewModel
 {
+    /**
+     * ViewModel for routing to the requested page
+     */
     public abstract class NavigationViewModel : ViewModelBase
     {
         public static readonly string PROFILE_READ_PAGE = "page.profile.read";

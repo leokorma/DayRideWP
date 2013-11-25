@@ -26,8 +26,9 @@ Requirements:
 * mandatory functionality
   * utilizing the existing cloud service with RESTful API support => done
   * user activities interactive with cloud service => done
-  * 
- 
+
+---
+
 Third party components:
 * MVVMLight
 * JSON.Net

@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Controls.Primitives;
-using NetworkMeter.View;
+using DayRide.View;
 using System.ComponentModel;
 using System.Threading;
 
-namespace NetworkMeter
+namespace DayRide
 {
     public partial class App : Application
     {

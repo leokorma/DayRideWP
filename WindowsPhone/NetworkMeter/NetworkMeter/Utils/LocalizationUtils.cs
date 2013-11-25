@@ -8,13 +8,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using NetworkMeter.Resources;
+using DayRide.Resources;
 
-namespace NetworkMeter.Utils
+namespace DayRide.Utils
 {
+    /**
+    * Helper Class to allow localization
+    */
     public class LocalizationUtils
     {
-        // Constructor
         public LocalizationUtils()
         {
         }

@@ -11,8 +11,11 @@ using System.Windows.Shapes;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace NetworkMeter.Utils
+namespace DayRide.Utils
 {
+    /**
+     * Helper Class to work with Json objects (serialize and deserialize)
+     */
     public class JsonUtils
     {
         public static string toJson<T>(T obj)

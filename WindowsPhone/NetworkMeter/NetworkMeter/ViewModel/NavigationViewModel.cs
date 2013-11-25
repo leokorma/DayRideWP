@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight;
 
-namespace NetworkMeter.ViewModel
+namespace DayRide.ViewModel
 {
     public abstract class NavigationViewModel : ViewModelBase
     {

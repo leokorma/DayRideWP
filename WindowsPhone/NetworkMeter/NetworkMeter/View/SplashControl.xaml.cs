@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace NetworkMeter.View
+namespace DayRide.View
 {
     public partial class SplashControl : UserControl
     {

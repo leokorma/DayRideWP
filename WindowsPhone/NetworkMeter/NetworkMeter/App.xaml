@@ -1,11 +1,10 @@
-<Application x:Class="NetworkMeter.App" 
+<Application x:Class="DayRide.App" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
              xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" 
-             xmlns:utils="clr-namespace:NetworkMeter.Utils" 
-             xmlns:converter="clr-namespace:NetworkMeter.Converter"
-             xmlns:vm="clr-namespace:NetworkMeter.ViewModel"
+             xmlns:utils="clr-namespace:DayRide.Utils" 
+             xmlns:vm="clr-namespace:DayRide.ViewModel"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              d1p1:Ignorable="d"
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
@@ -13,7 +12,6 @@
     <!--Application Resources-->
     <Application.Resources>
         <utils:LocalizationUtils x:Key="LocalizationUtils" />
-        <converter:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
         <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
     </Application.Resources>
 

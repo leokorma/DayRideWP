@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NetworkMeter.Resources {
+namespace DayRide.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NetworkMeter.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NetworkMeter.Resources.LocalizationResources", typeof(LocalizationResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DayRide.Resources.LocalizationResources", typeof(LocalizationResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -88,7 +88,7 @@ namespace NetworkMeter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NetworkMeter.
+        ///   Looks up a localized string similar to DayRide.
         /// </summary>
         public static string ApplicationName {
             get {

@@ -11,8 +11,12 @@ using System.Windows.Shapes;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace NetworkMeter.Utils
-{
+namespace DayRide.Utils
+{ 
+    /**
+     * Helper Class to encrypt passwords to validate users when login in
+     * Only encrypted passwords are stored in database
+     */
     public class CryptoUtils
     {
         public static string toSHA256(string str) {

@@ -10,11 +10,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using NetworkMeter.ViewModel;
+using DayRide.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
-using NetworkMeter.Utils;
+using DayRide.Utils;
 
-namespace NetworkMeter.View.Profile
+namespace DayRide.View.Profile
 {
     public partial class ReadProfilePage : PhoneApplicationPage
     {

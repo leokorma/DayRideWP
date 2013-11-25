@@ -12,8 +12,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
-namespace NetworkMeter.Model
+namespace DayRide.Model
 {
+    /**
+     * Model class for Profile
+     */
     public class Profile : IComparable<Profile>
     {
         public static readonly string ROLE_USER = "ROLE_USER";

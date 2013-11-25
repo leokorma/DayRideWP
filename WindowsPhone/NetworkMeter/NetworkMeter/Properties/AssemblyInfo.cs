@@ -7,11 +7,11 @@ using System.Windows.Markup;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NetworkMeter")]
+[assembly: AssemblyTitle("DayRide")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NetworkMeter")]
+[assembly: AssemblyProduct("DayRide")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -37,6 +37,6 @@ using System.Windows.Markup;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
 
-[assembly: XmlnsPrefix("http://views.NetworkMeter.com/", "view")]
-[assembly: XmlnsDefinition("http://views.NetworkMeter.com/", "NetworkMeter.View")]
-[assembly: XmlnsDefinition("http://views.NetworkMeter.com/", "NetworkMeter.View.Profile")]
+[assembly: XmlnsPrefix("http://views.DayRide.com/", "view")]
+[assembly: XmlnsDefinition("http://views.DayRide.com/", "DayRide.View")]
+[assembly: XmlnsDefinition("http://views.DayRide.com/", "DayRide.View.Profile")]

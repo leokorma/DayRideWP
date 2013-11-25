@@ -9,10 +9,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
-using NetworkMeter.Model;
+using DayRide.Model;
 
-namespace NetworkMeter.Utils.Database
+namespace DayRide.Utils.Database
 {
+    /**
+     * Helper Class to perform actions against Database Rest API
+     */
     public class ProfileUriUtils : UriUtils
     {
         private static readonly string COLLECTION_PROFILES = "profiles";
@@ -22,7 +25,8 @@ namespace NetworkMeter.Utils.Database
             return all(COLLECTION_PROFILES);
         }
 
-        public static string insert() {
+        public static string insert()
+        {
             return insert(COLLECTION_PROFILES);
         }
 

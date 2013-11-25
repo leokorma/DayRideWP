@@ -10,8 +10,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
 
-namespace NetworkMeter.Utils
-{
+namespace DayRide.Utils
+{ 
+    /**
+     * Helper Class to store objects to IsolatedStorage
+     */
     public class StorageUtils
     {
         public static readonly string CURRENT_PROFILE = "profile.current";

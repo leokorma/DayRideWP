@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010 Express for Windows Phone
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMeter", "NetworkMeter\NetworkMeter.csproj", "{3EFD7CB0-FE38-437A-832C-0F0A85DFEBC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayRide", "NetworkMeter\DayRide.csproj", "{3EFD7CB0-FE38-437A-832C-0F0A85DFEBC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,8 +10,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 
-namespace NetworkMeter.Utils.Database
+namespace DayRide.Utils.Database
 {
+    /**
+    * Helper Class to perform actions against Database Rest API
+    */
     public abstract class UriUtils
     {
         public static readonly string HTTP_METHOD_GET = "GET";

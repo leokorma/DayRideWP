@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage 
-    x:Class="NetworkMeter.LoginPage"
+    x:Class="DayRide.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -32,13 +32,10 @@
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Margin="0" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.CredentialsMessage}" />
 
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Username}" Margin="0,40,0,0" />
-                <TextBox Name="UsernameTextBlock" TextChanged="loginTextBlock_TextChanged" Text="javier"/>
+                <TextBox Name="UsernameTextBlock" Text="javier"/>
 
                 <TextBlock Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Password}" Margin="0,10,0,0" />
-                <PasswordBox Name="PasswordTextBlock" PasswordChanged="PasswordTextBlock_PasswordChanged" Password="ochoa" />
-                
-                <TextBlock Name="UsernameErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.UsernameErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsUsernameErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
-                <TextBlock Name="PasswordErrorMessage" Text="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.PasswordErrorMessage}" Margin="0,10,0,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center" Visibility="{Binding Path=IsPasswordErrorMessageVisible, Converter={StaticResource BoolVisibilityConverter}}" />
+                <PasswordBox Name="PasswordTextBlock" Password="ochoa" />
                 
                 <Button Content="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Login}" Name="LoginButton" Margin="0,20,0,0" Click="LoginButton_Click" />
             </StackPanel>

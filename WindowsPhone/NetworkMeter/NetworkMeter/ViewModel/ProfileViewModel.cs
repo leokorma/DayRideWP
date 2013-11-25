@@ -8,18 +8,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using NetworkMeter.Model;
+using DayRide.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Windows.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight;
-using NetworkMeter.Utils;
+using DayRide.Utils;
 using Microsoft.Phone.Shell;
-using NetworkMeter.Resources;
-using NetworkMeter.Utils.Database;
+using DayRide.Resources;
+using DayRide.Utils.Database;
 
-namespace NetworkMeter.ViewModel
+namespace DayRide.ViewModel
 {
     public class ProfileViewModel : NavigationViewModel
     {

@@ -16,6 +16,7 @@ using System.Windows.Controls.Primitives;
 using DayRide.View;
 using System.ComponentModel;
 using System.Threading;
+using DayRide.Utils;
 
 namespace DayRide
 {
@@ -66,6 +67,8 @@ namespace DayRide
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            StorageUtils.ClearAll();
+            TileUtils.Init(ShellTile.ActiveTiles.First());
             LoadSplashPopup();
         }
 

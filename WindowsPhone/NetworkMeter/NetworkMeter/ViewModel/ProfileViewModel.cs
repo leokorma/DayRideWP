@@ -113,7 +113,7 @@ namespace DayRide.ViewModel
             StorageUtils.Set(key, JsonUtils.toJson<Profile>(p));
         }
 
-        private void DeleteProfile(Profile p)
+        public void DeleteProfile(Profile p)
         {
             Uri uri = new Uri(ProfileUriUtils.delete(p.Oid));
 

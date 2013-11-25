@@ -17,6 +17,7 @@ using GalaSoft.MvvmLight;
 using DayRide.Utils;
 using DayRide.Resources;
 using DayRide.Utils.Database;
+using Microsoft.Phone.Shell;
 
 namespace DayRide.ViewModel
 {
@@ -25,6 +26,8 @@ namespace DayRide.ViewModel
      */
     public class LoginViewModel : NavigationViewModel
     {
+        public ShellTile Tile { get; set; }
+
         /**
          * Validate credentials against database
          */
@@ -82,6 +85,8 @@ namespace DayRide.ViewModel
                         profile = p;
 
                         StorageUtils.Set(StorageUtils.CURRENT_PROFILE, JsonUtils.toJson<Profile>(profile));
+
+                        TileUtils.EditTitle(Tile, p.FullName);
 
                         if (Profile.ROLE_ADMIN.Equals(profile.Role))
                         {

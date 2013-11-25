@@ -17,6 +17,7 @@ using DayRide.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using DayRide.View;
 using DayRide.Utils;
+using Microsoft.Phone.Shell;
 
 namespace DayRide
 {
@@ -42,6 +43,8 @@ namespace DayRide
 
             Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_READ_PAGE, (uri) => NavigationService.Navigate(uri));
             Messenger.Default.Register<Uri>(this, NavigationViewModel.PROFILE_ALL_PAGE, (uri) => NavigationService.Navigate(uri));
+
+            _viewModel.Tile = ShellTile.ActiveTiles.FirstOrDefault();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

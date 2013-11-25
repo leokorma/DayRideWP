@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -32,6 +33,12 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,0,0,10">
+                            <toolkit:ContextMenuService.ContextMenu>
+                                <toolkit:ContextMenu Name="ContextMenu" >
+                                    <toolkit:MenuItem Name="ContextMenu_Edit" Header="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Edit}" Click="ContextMenu_Edit_Click" />
+                                    <toolkit:MenuItem Name="ContextMenu_Delete" Header="{Binding Source={StaticResource LocalizationUtils}, Path=LocalizationResources.Delete}" Click="ContextMenu_Delete_Click" />
+                                </toolkit:ContextMenu>
+                            </toolkit:ContextMenuService.ContextMenu>
                             <TextBlock Text="{Binding Path=FullName}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                             <TextBlock Text="{Binding Path=DateOfBirth, StringFormat='{}{0:dd MMMM, yyyy}'}" Style="{StaticResource PhoneTextSubtleStyle}"/>
                         </StackPanel>

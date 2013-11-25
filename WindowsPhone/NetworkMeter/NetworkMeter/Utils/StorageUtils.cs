@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
 
 namespace DayRide.Utils
-{ 
+{
     /**
      * Helper Class to store objects to IsolatedStorage
      */
@@ -66,6 +66,11 @@ namespace DayRide.Utils
             {
                 settings.Remove(name);
             }
+        }
+
+        public static void ClearAll()
+        {
+            getSettings().Clear();
         }
     }
 }

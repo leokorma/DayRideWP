@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalizationResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\TileUtils.cs" />
     <Compile Include="Utils\CryptoUtils.cs" />
     <Compile Include="Utils\Database\UriUtils.cs" />
     <Compile Include="Utils\Database\ProfileUriUtils.cs" />
@@ -153,12 +154,8 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationIcon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Background.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="ApplicationIcon.png" />
+    <Resource Include="Background.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Edit.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Save.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />

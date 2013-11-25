@@ -17,7 +17,7 @@ namespace DayRide.Utils
     /**
    * Helper Class to show MessageBox popups
    */
-    public abstract class MessageBoxUtils : ViewModelBase
+    public class MessageBoxUtils
     {
         public static void ShowNoProfileFoundMessageBox()
         {

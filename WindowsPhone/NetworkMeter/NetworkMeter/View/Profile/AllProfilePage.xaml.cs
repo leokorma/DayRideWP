@@ -52,5 +52,23 @@ namespace DayRide.View.User
                 _viewModel.LoadProfile(p.Oid);
             }
         }
+
+        private void ContextMenu_Edit_Click(object sender, RoutedEventArgs e)
+        {
+            Model.Profile p = (sender as MenuItem).DataContext as Model.Profile;
+            if (p != null)
+            {
+                _viewModel.LoadProfile(p.Oid);
+            }
+        }
+
+        private void ContextMenu_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            Model.Profile p = (sender as MenuItem).DataContext as Model.Profile;
+            if (p != null)
+            {
+                _viewModel.DeleteProfile(p);
+            }
+        }
     }
 }

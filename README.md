@@ -32,3 +32,4 @@ Requirements:
 Third party components:
 * MVVMLight
 * JSON.Net
+* Windows Phone Toolkit

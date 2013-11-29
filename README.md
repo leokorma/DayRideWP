@@ -8,7 +8,7 @@ Requirements:
 * overview
   * Silverlight app for Windows phone (Mango) with modern (Metro) UI
   * localization ready => done
-	 * Model-View-ViewModel architecture => done
+  * Model-View-ViewModel architecture => done
   * Windows phone navigation => done
   * tombstoning handling => done
   * live tile => done

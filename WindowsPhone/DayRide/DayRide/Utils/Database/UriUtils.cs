@@ -22,8 +22,8 @@ namespace DayRide.Utils.Database
         public static readonly string HTTP_METHOD_DELETE = "DELETE";
         public static readonly string HTTP_METHOD_PUT = "PUT";
 
-        private static readonly string API_KEY = "clPjlSOPUfCXe0ZA5vaZtEMsBsgq_g3y";
-        private static readonly string DATABASE_NAME = "networkmeter";
+        private static readonly string API_KEY = "API_KEY_GOES_HERE";
+        private static readonly string DATABASE_NAME = "DATABASE_NAME_GOES_HERE";
         private static readonly string URI = "https://api.mongolab.com/api/1/databases/" + DATABASE_NAME + "/collections/";
 
         private static string buildUri(string collection, string oid)

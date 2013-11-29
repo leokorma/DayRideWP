@@ -6,6 +6,8 @@ Windows Phone 7 App for driving school users management.
  * There should be several type of user roles: Admins, Teachers, Students.
  * Conditional app, so depending the user role, app shows different content.
 
+---
+
 Requirements:
 
 * overview

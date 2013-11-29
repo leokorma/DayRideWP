@@ -8,6 +8,14 @@ Windows Phone 7 App for driving school users management.
 
 ---
 
+Further Development:
+
+Even though it is possible to create, edit and delete users, there is need to improve user management to avoid violations of content.
+
+Additionally, implementation of functionality for users has to be done too.
+
+---
+
 Requirements:
 
 * overview
